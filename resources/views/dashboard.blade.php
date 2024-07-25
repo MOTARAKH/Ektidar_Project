@@ -13,10 +13,12 @@
                     @if (Auth::user()->isAdmin == 1)
                         as an admin
                     @else
-                        as a doctor     
+                        as a doctor
                     @endif
                 </div>
+
             </div>
+
         </div>
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mt-2">
             <!-- Display success message -->
@@ -37,7 +39,34 @@
                     </select>
                 </div>
             </div>
+            <div class="mt-3 ">
+                <a href="{{ route('forms.index') }}"
+                class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition duration-150 mb-6 inline-block">
+                    المتابعات
+                </a>
+                <a href="{{ route('receptions.index') }}"
+                class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition duration-150 mb-6 inline-block">
+                    الاستقبالات
+                </a>
+                <a href="{{ route('forms.index') }}"
+                class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition duration-150 mb-6 inline-block">
+                    الزيارات و التواصل
+                </a>
+                <a href="{{ route('forms.index') }}"
+                class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition duration-150 mb-6 inline-block">
+                    الحركة الاعلامية
+                </a>
+                <a href="{{ route('forms.index') }}"
+                class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition duration-150 mb-6 inline-block">
+                    الانشطة المختلفة
+                </a>
+                <a href="{{ route('forms.index') }}"
+                class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition duration-150 mb-6 inline-block">
+                    المشاركات المختلفة
+                </a>
+            </div>
         </div>
+
     </div>
 <script src="{{ asset('js/dashboard/dashboard.js') }}" defer></script>
 </x-app-layout>

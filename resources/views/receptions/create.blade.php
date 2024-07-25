@@ -3,16 +3,12 @@
     <div class="container mx-auto px-4 py-6">
         <h1 class="text-3xl font-semibold text-gray-800 mb-6 border-b border-gray-200 pb-2">انشاء فورم</h1>
 
-        <form action="{{ route('forms.store') }}" method="POST" class="bg-white shadow-md rounded-lg p-6">
+        <form action="{{ route('receptions.store') }}" method="POST" class="bg-white shadow-md rounded-lg p-6">
             @csrf
 
             <input type="hidden" id="user_id" name="user_id" value="{{ auth()->id() }}">
 
-            <div class="mb-4">
-                <label for="title" class="block text-sm font-medium text-gray-700 mb-1 text-right">عنوان</label>
-                <input type="text" id="title" name="title" required dir="rtl"
-                    class="form-input block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50 text-right">
-            </div>
+
 
             <div class="mb-4">
                 <label for="side" class="block text-sm font-medium text-gray-700 mb-1 text-right">جهة</label>
@@ -43,5 +39,5 @@
         </form>
     </div>
 
-    <script src="{{ asset('js/forms/create.js') }}"></script>
+    <script src="{{ asset('js/receptions/create.js') }}"></script>
 </x-app-layout>

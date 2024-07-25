@@ -59,4 +59,19 @@ class Reception extends Model
     {
         return $this->morphMany(Description::class, 'describable');
     }
+
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        // Delete descriptions when a form is deleted
+        static::deleting(function ($reception) {
+            $reception->descriptions()->delete();
+        });
+
+        static::creating(function ($reception) {
+            $reception->finished = 0;
+        });
+    }
 }

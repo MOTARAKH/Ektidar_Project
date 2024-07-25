@@ -1,6 +1,7 @@
 <?php
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\FormController;
+use App\Http\Controllers\ReceptionController;
 use Illuminate\Support\Facades\Route;
 Route::middleware('auth')->group(function () {
 
@@ -15,6 +16,9 @@ Route::middleware('auth')->group(function () {
     /** forms routes */
     Route::resource('forms', FormController::class);
     Route::post('/storeFromIndex', [FormController::class, 'storeFromIndex'])->name('forms.storeFromIndex');
+
+    Route::resource('receptions', ReceptionController::class);
+    Route::post('/storeFromIndex', [ReceptionController::class, 'storeFromIndex'])->name('receptions.storeFromIndex');
 
 
 });

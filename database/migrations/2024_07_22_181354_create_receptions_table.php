@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('receptions', function (Blueprint $table) {
             $table->increments('id');
             $table->string('side');
+            $table->integer('finished');
             $table->timestamps();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
