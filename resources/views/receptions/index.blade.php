@@ -152,6 +152,7 @@
                     </tbody>
                 </table>
 
+
                 <!-- Show button -->
                 <button type="button" onclick="toggleCreateRow()"
                     class="bg-blue-500 text-white p-2 rounded hover:bg-blue-600 absolute bottom-2 right-2"
