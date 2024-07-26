@@ -1,12 +1,12 @@
 <x-app-layout>
     <div class="container mx-auto px-4 py-6">
-        <h1 class="text-4xl font-bold mb-6">المتابعات</h1>
-        <a href="{{ route('forms.create') }}"
+        <h1 class="text-4xl font-bold mb-6">الزيارات و التواصل</h1>
+        <a href="{{ route('visits.create') }}"
             class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition duration-150 mb-6 inline-block">
             Create New Form
         </a>
 
-        @if ($forms->isEmpty())
+        @if ($visits->isEmpty())
             <div class="bg-yellow-100 text-yellow-800 p-4 rounded-lg shadow-md">
                 No forms available. Click the "Create New Form" button to add a form.
             </div>
@@ -18,9 +18,7 @@
                             <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-300">
                                 الجهة
                             </th>
-                            <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-300">
-                                الموضوع
-                            </th>
+
                             <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-300">
                                 التفصيل
                             </th>
@@ -31,15 +29,14 @@
 
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
-                        @foreach ($forms as $form)
+                        @foreach ($visits as $visit)
                             <tr>
-                                <td class="px-6 py-4 whitespace-nowrap border-r border-gray-300">{{ $form->title }}
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap border-r border-gray-300">{{ $form->side }}
+
+                                <td class="px-6 py-4 whitespace-nowrap border-r border-gray-300">{{ $visit->side }}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap border-r border-gray-300">
                                     <ul class="list-disc pl-5 space-y-1">
-                                        @forelse ($form->descriptions as $description)
+                                        @forelse ($visit->descriptions as $description)
                                             <li>{{ $description->description }}</li>
                                         @empty
                                             <li>No descriptions</li>
@@ -48,7 +45,7 @@
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="flex space-x-1">
-                                        <a href="{{ route('forms.show', $form) }}"
+                                        <a href="{{ route('visits.show', $visit) }}"
                                             class="bg-teal-500 text-white px-3 py-1 rounded-lg hover:bg-teal-600 transition duration-150">
                                             <svg class="h-5 w-5 inline-block" fill="none" stroke="currentColor"
                                                 viewBox="0 0 24 24">
@@ -56,8 +53,8 @@
                                                     d="M15 12H9m0 0l-3 3m3-3l3-3m6 3v3a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-3M9 12h6" />
                                             </svg>
                                         </a>
-                                        @if (!$form->finished == 1 || ($form->finished == 1 && Auth::user()->isAdmin == 1))
-                                            <a href="{{ route('forms.edit', $form) }}"
+                                        @if (!$visit->finished == 1 || ($visit->finished == 1 && Auth::user()->isAdmin == 1))
+                                            <a href="{{ route('visits.edit', $visit) }}"
                                                 class="bg-yellow-600 text-white px-3 py-1 rounded-lg hover:bg-yellow-700 transition duration-150">
                                                 <svg class="h-5 w-5 inline-block" fill="none" stroke="currentColor"
                                                     viewBox="0 0 24 24">
@@ -67,7 +64,7 @@
                                                 </svg>
                                             </a>
                                         @endif
-                                        <form action="{{ route('forms.destroy', $form) }}" method="POST">
+                                        <form action="{{ route('visits.destroy', $visit) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit"
@@ -87,20 +84,14 @@
                         <!-- New Form Row -->
                         <tr id="create-row" class="bg-gray-50 hidden">
                             <td colspan="4" class="px-6 py-4">
-                                <form id="create-form" action="{{ route('forms.storeFromIndex') }}" method="POST">
+                                <form id="create-form" action="{{ route('visits.storeFromVisitIndex') }}" method="POST">
                                     @csrf
-                                    <!-- Title input -->
-                                    <div class="mb-4">
-                                        <label for="title"
-                                            class="block text-sm font-medium text-gray-700">الجهة</label>
-                                        <input type="text" id="title" name="title" required
-                                            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-                                    </div>
+
 
                                     <!-- Side input -->
                                     <div class="mb-4">
                                         <label for="side"
-                                            class="block text-sm font-medium text-gray-700">الموضوع</label>
+                                            class="block text-sm font-medium text-gray-700">الجهة</label>
                                         <input type="text" id="side" name="side" required
                                             class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                                     </div>
@@ -170,7 +161,7 @@
 
             <!-- Pagination Links -->
             <div class="mt-4">
-                {{ $forms->links('pagination::tailwind') }}
+                {{ $visits->links('pagination::tailwind') }}
             </div>
         @endif
     </div>

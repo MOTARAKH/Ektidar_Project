@@ -1,7 +1,7 @@
 <x-app-layout>
 
     <div class="container mx-auto p-6 bg-white shadow-md rounded-lg mt-2">
-        <h1 class="text-2xl font-bold mb-4">Edit Form</h1>
+        <h1 class="text-2xl font-bold mb-4">تعديل</h1>
 
         <form action="{{ route('forms.update', $form->id) }}" method="POST">
             @csrf
@@ -12,21 +12,21 @@
 
             <!-- Title input -->
             <div class="mb-4">
-                <label for="title" class="block text-sm font-medium text-gray-700">Title</label>
+                <label for="title" class="block text-sm font-medium text-gray-700">الجهة</label>
                 <input type="text" id="title" name="title" value="{{ $form->title }}" required
                     class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
             </div>
 
             <!-- Side input -->
             <div class="mb-4">
-                <label for="side" class="block text-sm font-medium text-gray-700">Side</label>
+                <label for="side" class="block text-sm font-medium text-gray-700">الموضوع</label>
                 <input type="text" id="side" name="side" value="{{ $form->side }}" required
                     class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
             </div>
 
             <!-- Descriptions -->
             <div id="descriptions-container" class="mb-6">
-                <label class="block text-sm font-medium text-gray-700 mb-2">Descriptions</label>
+                <label class="block text-sm font-medium text-gray-700 mb-2">التفصيل</label>
 
                 @foreach ($form->descriptions as $index => $description)
                     <div class="flex items-center mb-4" id="description-{{ $index }}">

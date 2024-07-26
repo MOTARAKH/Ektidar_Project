@@ -5,9 +5,10 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
-                        <x-application-logo class="block h-9 w-auto fill-current text-white" />
-                    </a>
+                    <div style="text-align: center; background-color: blue-600; color: white;">
+                        <span style="font-size: 24px; font-weight: bold; font-family: 'Amiri'; display: block;">اقتدار</span>
+                        <span style="font-size: 16px; display: block;font-family: 'Amiri';">تعبئة التربوية</span>
+                    </div>
                 </div>
 
                 <!-- Navigation Links -->

@@ -1,20 +1,20 @@
 <x-app-layout>
 
     <div class="container mx-auto p-6 bg-white shadow-md rounded-lg mt-2">
-        <h1 class="text-2xl font-bold mb-4">Edit Form</h1>
+        <h1 class="text-2xl font-bold mb-4">تعديل</h1>
 
-        <form action="{{ route('receptions.update', $reception->id) }}" method="POST">
+        <form action="{{ route('visits.update', $visit->id) }}" method="POST">
             @csrf
             @method('PUT')
 
             <!-- Hidden user_id input -->
-            <input type="hidden" name="user_id" value="{{ $reception->user_id }}">
+            <input type="hidden" name="user_id" value="{{ $visit->user_id }}">
 
 
             <!-- Side input -->
             <div class="mb-4">
                 <label for="side" class="block text-sm font-medium text-gray-700">الجهة</label>
-                <input type="text" id="side" name="side" value="{{ $reception->side }}" required
+                <input type="text" id="side" name="side" value="{{ $visit->side }}" required
                     class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
             </div>
 
@@ -22,7 +22,7 @@
             <div id="descriptions-container" class="mb-6">
                 <label class="block text-sm font-medium text-gray-700 mb-2">التفصيل</label>
 
-                @foreach ($reception->descriptions as $index => $description)
+                @foreach ($visit->descriptions as $index => $description)
                     <div class="flex items-center mb-4" id="description-{{ $index }}">
                         <input type="text" name="descriptions[]" value="{{ $description->description }}"
                             class="flex-1 block border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
@@ -59,14 +59,14 @@
             </button>
 
             <!-- Back button -->
-            <a href="{{ route('receptions.index') }}" class="ml-4 bg-gray-500 text-white p-2 rounded hover:bg-gray-600">
+            <a href="{{ route('visits.index') }}" class="ml-4 bg-gray-500 text-white p-2 rounded hover:bg-gray-600">
                 Back to Forms
             </a>
         </form>
     </div>
 
     <script>
-        let descriptionCount = {{ $reception->descriptions->count() }};
+        let descriptionCount = {{ $visit->descriptions->count() }};
     </script>
     <script src="{{ asset('js/forms/edit.js') }}"></script>
 </x-app-layout>

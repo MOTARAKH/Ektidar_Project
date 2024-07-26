@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Requests\HandleFormRequest;
 use App\Http\Requests\HandleRecepetionRequest;
 use App\Models\Description;
-use App\Models\Form;
 use App\Models\Reception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
@@ -55,7 +53,7 @@ class ReceptionController extends Controller
 
         return redirect()->route('receptions.index')->with('success', 'Form created successfully.');
     }
-    public function storeFromIndex(Request $request) : RedirectResponse
+    public function storeFromReceptionIndex(Request $request) : RedirectResponse
     {
         $validated = $request->validate([
 

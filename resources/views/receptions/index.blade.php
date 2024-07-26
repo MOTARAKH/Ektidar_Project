@@ -15,9 +15,7 @@
                 <table class="min-w-full divide-y divide-gray-200 bg-white shadow-md rounded-lg border border-gray-300">
                     <thead class="bg-gray-100">
                         <tr>
-                            <th
-                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-300">
-                                Title</th>
+
                             <th
                                 class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-300">
                                 Side</th>
@@ -84,15 +82,9 @@
                         <!-- New Form Row -->
                         <tr id="create-row" class="bg-gray-50 hidden">
                             <td colspan="4" class="px-6 py-4">
-                                <form id="create-form" action="{{ route('receptions.storeFromIndex') }}" method="POST">
+                                <form id="create-form" action="{{ route('receptions.storeFromReceptionIndex') }}" method="POST">
                                     @csrf
-                                    <!-- Title input -->
-                                    <div class="mb-4">
-                                        <label for="title"
-                                            class="block text-sm font-medium text-gray-700">Title</label>
-                                        <input type="text" id="title" name="title" required
-                                            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-                                    </div>
+
 
                                     <!-- Side input -->
                                     <div class="mb-4">
@@ -152,16 +144,18 @@
                     </tbody>
                 </table>
 
+                    <div class="mt-10">
 
-                <!-- Show button -->
-                <button type="button" onclick="toggleCreateRow()"
-                    class="bg-blue-500 text-white p-2 rounded hover:bg-blue-600 absolute bottom-2 right-2"
-                    id="showed">
-                    <svg class="h-4 w-4 text-white-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M16 17l-4 4m0 0l-4-4m4 4V3" />
-                    </svg>
-                </button>
+                        <!-- Show button -->
+                        <button type="button" onclick="toggleCreateRow()"
+                        class="bg-blue-500 text-white p-2 rounded hover:bg-blue-600 absolute bottom-2 right-2"
+                        id="showed">
+                        <svg class="h-4 w-4 text-white-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M16 17l-4 4m0 0l-4-4m4 4V3" />
+                        </svg>
+                    </button>
+                    </div>
             </div>
 
             <!-- Pagination Links -->

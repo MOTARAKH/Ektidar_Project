@@ -62,4 +62,21 @@ class Media extends Model
     {
         return $this->morphMany(Description::class, 'describable');
     }
+    protected static function boot()
+    {
+        parent::boot();
+
+        // Delete descriptions when a form is deleted
+        static::deleting(function ($media) {
+            $media->descriptions()->delete();
+        });
+
+        static::creating(function ($media) {
+
+            if (session()->has('selected_month')) {
+                $media->month = session('selected_month');
+            }
+            $media->finished = 0;
+        });
+    }
 }

@@ -59,4 +59,20 @@ class Visit extends Model
     {
         return $this->morphMany(Description::class, 'describable');
     }
+    protected static function boot()
+    {
+        parent::boot();
+
+        // Delete descriptions when a form is deleted
+        static::deleting(function ($visit) {
+            $visit->descriptions()->delete();
+        });
+
+        static::creating(function ($visit) {
+            if (session()->has('selected_month')) {
+                $visit->month = session('selected_month');
+            }
+            $visit->finished = 0;
+        });
+    }
 }

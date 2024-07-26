@@ -48,11 +48,11 @@
                 class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition duration-150 mb-6 inline-block">
                     الاستقبالات
                 </a>
-                <a href="{{ route('forms.index') }}"
+                <a href="{{ route('visits.index') }}"
                 class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition duration-150 mb-6 inline-block">
                     الزيارات و التواصل
                 </a>
-                <a href="{{ route('forms.index') }}"
+                <a href="{{ route('media.index') }}"
                 class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition duration-150 mb-6 inline-block">
                     الحركة الاعلامية
                 </a>

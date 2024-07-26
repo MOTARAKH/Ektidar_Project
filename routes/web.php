@@ -1,7 +1,9 @@
 <?php
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\FormController;
+use App\Http\Controllers\MediaController;
 use App\Http\Controllers\ReceptionController;
+use App\Http\Controllers\VisitController;
 use Illuminate\Support\Facades\Route;
 Route::middleware('auth')->group(function () {
 
@@ -18,7 +20,15 @@ Route::middleware('auth')->group(function () {
     Route::post('/storeFromIndex', [FormController::class, 'storeFromIndex'])->name('forms.storeFromIndex');
 
     Route::resource('receptions', ReceptionController::class);
-    Route::post('/storeFromIndex', [ReceptionController::class, 'storeFromIndex'])->name('receptions.storeFromIndex');
+    Route::post('/storeFromReceptionIndex', [ReceptionController::class, 'storeFromReceptionIndex'])->name('receptions.storeFromReceptionIndex');
+
+    Route::resource('visits', VisitController::class);
+    Route::post('/storeFromVisitIndex', [VisitController::class, 'storeFromVisitIndex'])->name('visits.storeFromVisitIndex');
+
+
+
+    Route::resource('media', MediaController::class);
+    Route::post('/storeFromMediaIndex', [MediaController::class, 'storeFromMediaIndex'])->name('media.storeFromMediaIndex');
 
 
 });
