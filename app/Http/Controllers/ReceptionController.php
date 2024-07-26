@@ -66,7 +66,6 @@ class ReceptionController extends Controller
 
         // Create the form
         $receptions = Reception::create([
-
             'side' => $validated['side'],
             'user_id' => Auth::id(),
         ]);

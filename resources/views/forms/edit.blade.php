@@ -74,5 +74,5 @@
     <script>
         let descriptionCount = {{ $form->descriptions->count() }};
     </script>
-    <script src="{{ asset('js/forms/edit.js') }}"></script>
+    <script src="{{ asset('js/shared/edit.js') }}"></script>
 </x-app-layout>

@@ -25,7 +25,8 @@ class Reception extends Model
      */
     protected $fillable = [
         'side',
-        'user_id'
+        'user_id',
+        'finished'
     ];
 
     /**

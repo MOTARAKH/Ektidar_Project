@@ -43,5 +43,5 @@
         </form>
     </div>
 
-    <script src="{{ asset('js/forms/create.js') }}"></script>
+    <script src="{{ asset('js/shared/create.js') }}"></script>
 </x-app-layout>

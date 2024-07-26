@@ -15,10 +15,10 @@ Route::middleware('auth')->group(function () {
 
     /** forms routes */
     Route::resource('forms', FormController::class);
-    Route::post('/storeFromIndex', [FormController::class, 'storeFromIndex'])->name('forms.storeFromIndex');
+    Route::post('/storeFormFromIndex', [FormController::class, 'storeFromIndex'])->name('forms.storeFromIndex');
 
     Route::resource('receptions', ReceptionController::class);
-    Route::post('/storeFromIndex', [ReceptionController::class, 'storeFromIndex'])->name('receptions.storeFromIndex');
+    Route::post('/storeReceptionFromIndex', [ReceptionController::class, 'storeFromIndex'])->name('receptions.storeFromIndex');
 
 
 });
