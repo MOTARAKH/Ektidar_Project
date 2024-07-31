@@ -8,6 +8,7 @@ use App\Models\Form;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+
 class FormController extends Controller
 {
     /**
@@ -15,11 +16,23 @@ class FormController extends Controller
      */
     public function index()
     {
+        // Check if the user is not an admin
         if (Auth::user()->isAdmin != 1) {
-            $forms = Form::with('descriptions')->where('user_id', auth()->id())->paginate(3);
+            // For non-admins: only fetch forms owned by the authenticated user
+            $forms = Form::with(['descriptions', 'ratings'])
+                ->where('user_id', auth()->id())
+                ->paginate(3);
         } else {
-            $forms = Form::with('descriptions')->paginate(3);
+            // For admins: fetch all forms
+            $forms = Form::with(['descriptions', 'ratings'])
+                ->paginate(3);
         }
+
+        // Calculate the average rating for each form
+        foreach ($forms as $form) {
+            $form->average_rating = $form->ratings->avg('rating');
+        }
+
         return view('forms.index', compact('forms'));
     }
 
@@ -56,7 +69,7 @@ class FormController extends Controller
 
         return redirect()->route('forms.index')->with('success', 'Form created successfully.');
     }
-    public function storeFromIndex(Request $request) : RedirectResponse
+    public function storeFromIndex(Request $request): RedirectResponse
     {
         $validated = $request->validate([
             'title' => 'required|string|max:255',
@@ -93,7 +106,14 @@ class FormController extends Controller
      */
     public function show(Form $form)
     {
-        return view('forms.show', compact('form'));
+        // Assuming you have a way to get the authenticated user
+        $user = auth()->user();
+
+        // Fetch the user's rating for the form
+        $userRating = $user ? $form->ratings()->where('user_id', $user->id)->first()->rating ?? 0 : 0;
+
+        // Pass the form and user's rating to the view
+        return view('forms.show', compact('form', 'userRating'));
     }
 
     /**

@@ -1,7 +1,7 @@
 
 <x-app-layout>
     <div class="container mx-auto px-4 py-6">
-        <h1 class="text-3xl font-semibold text-gray-800 mb-6 border-b border-gray-200 pb-2">انشاء فورم</h1>
+        <h1 class="text-3xl font-semibold text-gray-800 mb-6 border-b border-gray-200 pb-2">انشاء </h1>
 
         <form action="{{ route('receptions.store') }}" method="POST" class="bg-white shadow-md rounded-lg p-6">
             @csrf
@@ -39,5 +39,5 @@
         </form>
     </div>
 
-    <script src="{{ asset('js/receptions/create.js') }}"></script>
+    <script src="{{ asset('js/forms/create.js') }}"></script>
 </x-app-layout>

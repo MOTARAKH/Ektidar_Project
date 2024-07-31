@@ -28,7 +28,8 @@ class Media extends Model
         'MediaOutlet',
         'topic',
         'ParticipatingParties',
-        'user_id'
+        'user_id',
+        'finished'
     ];
 
     /**
@@ -62,6 +63,12 @@ class Media extends Model
     {
         return $this->morphMany(Description::class, 'describable');
     }
+
+    public function ratings()
+    {
+        return $this->morphMany(Rate::class, 'rateable');
+    }
+    
     protected static function boot()
     {
         parent::boot();
@@ -72,10 +79,6 @@ class Media extends Model
         });
 
         static::creating(function ($media) {
-
-            if (session()->has('selected_month')) {
-                $media->month = session('selected_month');
-            }
             $media->finished = 0;
         });
     }

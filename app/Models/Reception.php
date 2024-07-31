@@ -25,6 +25,7 @@ class Reception extends Model
      */
     protected $fillable = [
         'side',
+        'finished',
         'user_id'
     ];
 
@@ -60,6 +61,10 @@ class Reception extends Model
         return $this->morphMany(Description::class, 'describable');
     }
 
+    public function ratings()
+    {
+        return $this->morphMany(Rate::class, 'rateable');
+    }
 
     protected static function boot()
     {

@@ -17,12 +17,24 @@ class MediaController extends Controller
      */
     public function index()
     {
+        // Check if the user is not an admin
         if (Auth::user()->isAdmin != 1) {
-            $media = Media::with('descriptions')->where('user_id', auth()->id())->paginate(3);
+            // For non-admins: only fetch forms owned by the authenticated user
+            $medias = Media::with(['descriptions', 'ratings'])
+                ->where('user_id', auth()->id())
+                ->paginate(3);
         } else {
-            $media = Media::with('descriptions')->paginate(3);
+            // For admins: fetch all forms
+            $medias = Media::with(['descriptions', 'ratings'])
+                ->paginate(3);
         }
-        return view('media.index', compact('media'));
+
+        // Calculate the average rating for each form
+        foreach ($medias as $media) {
+            $media->average_rating = $media->ratings->avg('rating');
+        }
+
+        return view('media.index', compact('medias'));
     }
 
     /**
@@ -97,24 +109,35 @@ class MediaController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Media $media)
+    public function show($id)
     {
-        return view('media.show', compact('media'));
+        // Retrieve the media instance by its ID
+        $media = Media::findOrFail($id);
+        
+        $user = auth()->user();
+        
+        // Fetch the user's rating for the form
+        $userRating = $user ? $media->ratings()->where('user_id', $user->id)->first()->rating ?? 0 : 0;
+
+        // Pass the media instance to the view
+        return view('media.show', compact('media','userRating'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Media $media)
-    {
+    public function edit($id)
+    {   
+        $media = Media::findOrFail($id);
         return view('media.edit', compact('media'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(HandleMediaRequest $request, Media $media)
+    public function update(HandleMediaRequest $request, $id)
     {
+        $media = Media::findOrFail($id);
         // Update form fields
         $media->update([
             'type' => $request->input('type'),

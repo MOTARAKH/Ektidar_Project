@@ -8,23 +8,27 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
+     *
+     * @return void
      */
     public function up(): void
     {
         Schema::create('posts', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('slug')->unique();
-            $table->string('title');
-            $table->string('image_path');
-            $table->timestamps();
-            $table->unsignedBigInteger('user_id');
-            
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->id(); // Preferred for auto-incrementing primary keys
+            $table->string('title'); // Title of the post
+            $table->string('side'); // Side related to the post
+            $table->string('sidesParticipating'); // Sides participating in the post
+            $table->timestamps(); // Created at and updated at timestamps
+            $table->foreignId('user_id') // Define user_id as a foreign key
+                ->constrained() // Automatically references the 'id' column on 'users'
+                ->onDelete('cascade'); // Automatically delete posts when the user is deleted
         });
     }
 
     /**
      * Reverse the migrations.
+     *
+     * @return void
      */
     public function down(): void
     {

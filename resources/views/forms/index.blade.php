@@ -1,17 +1,17 @@
 <x-app-layout>
-    <div class="container mx-auto px-4 py-6">
-        <h1 class="text-4xl font-bold mb-6">المتابعات</h1>
+    <div class="container mx-auto px-4 py-6 rtl">
+        <h1 class="text-4xl font-bold mb-6 text-right">المتابعات</h1>
         <a href="{{ route('forms.create') }}"
-            class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition duration-150 mb-6 inline-block">
-            Create New Form
+            class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition duration-150 mb-6 inline-block rtl">
+            اضافة
         </a>
 
         @if ($forms->isEmpty())
             <div class="bg-yellow-100 text-yellow-800 p-4 rounded-lg shadow-md">
-                No forms available. Click the "Create New Form" button to add a form.
+                لا توجد نماذج متاحة. اضغط على زر "إضافة نموذج جديد" لإضافة نموذج.
             </div>
         @else
-            <div class="overflow-x-auto relative">
+            <div class="overflow-x-auto relative rtl">
                 <table class="min-w-full divide-y divide-gray-200 bg-white shadow-md rounded-lg border border-gray-300">
                     <thead class="bg-gray-100">
                         <tr>
@@ -24,38 +24,47 @@
                             <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-300">
                                 التفصيل
                             </th>
+                            <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-300">
+                                نسبة الاعجاب
+                            </th>
                             <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 أجراءات
                             </th>
                         </tr>
-
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
                         @foreach ($forms as $form)
                             <tr>
-                                <td class="px-6 py-4 whitespace-nowrap border-r border-gray-300">{{ $form->title }}
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap border-r border-gray-300">{{ $form->side }}
-                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap border-r border-gray-300">{{ $form->title }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap border-r border-gray-300">{{ $form->side }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap border-r border-gray-300">
                                     <ul class="list-disc pl-5 space-y-1">
                                         @forelse ($form->descriptions as $description)
                                             <li>{{ $description->description }}</li>
                                         @empty
-                                            <li>No descriptions</li>
+                                            <li>لا يوجد تفاصيل</li>
                                         @endforelse
                                     </ul>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="flex space-x-1">
+                                <td class="px-6 py-4 whitespace-nowrap border-r border-gray-300">
+                                    @isset($form->average_rating)
+                                        {{ number_format($form->average_rating, 2) }}
+                                    @else
+                                        لا يوجد لحد الان
+                                    @endisset
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap border-r border-gray-300">
+                                    <div class="flex space-x-1 rtl">
+                                        <!-- View -->
                                         <a href="{{ route('forms.show', $form) }}"
-                                            class="bg-teal-500 text-white px-3 py-1 rounded-lg hover:bg-teal-600 transition duration-150">
+                                            class="bg-teal-500 text-white px-3 py-1 rounded-lg hover:bg-teal-600 transition duration-150 ml-1">
                                             <svg class="h-5 w-5 inline-block" fill="none" stroke="currentColor"
                                                 viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                     d="M15 12H9m0 0l-3 3m3-3l3-3m6 3v3a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-3M9 12h6" />
                                             </svg>
                                         </a>
+                                        <!-- end View -->
                                         @if (!$form->finished == 1 || ($form->finished == 1 && Auth::user()->isAdmin == 1))
                                             <a href="{{ route('forms.edit', $form) }}"
                                                 class="bg-yellow-600 text-white px-3 py-1 rounded-lg hover:bg-yellow-700 transition duration-150">
@@ -85,28 +94,26 @@
                         @endforeach
 
                         <!-- New Form Row -->
-                        <tr id="create-row" class="bg-gray-50 hidden">
-                            <td colspan="4" class="px-6 py-4">
+                        <tr id="create-row" class="bg-gray-50 hidden rtl">
+                            <td colspan="5" class="px-6 py-4">
                                 <form id="create-form" action="{{ route('forms.storeFromIndex') }}" method="POST">
                                     @csrf
                                     <!-- Title input -->
                                     <div class="mb-4">
-                                        <label for="title"
-                                            class="block text-sm font-medium text-gray-700">الجهة</label>
+                                        <label for="title" class="block text-sm font-medium text-gray-700">الجهة</label>
                                         <input type="text" id="title" name="title" required
                                             class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                                     </div>
 
                                     <!-- Side input -->
                                     <div class="mb-4">
-                                        <label for="side"
-                                            class="block text-sm font-medium text-gray-700">الموضوع</label>
+                                        <label for="side" class="block text-sm font-medium text-gray-700">الموضوع</label>
                                         <input type="text" id="side" name="side" required
                                             class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                                     </div>
 
                                     <!-- Descriptions -->
-                                    <div id="descriptions-container" class="mb-6">
+                                    <div id="descriptions-container" class="mb-6 rtl">
                                         <label class="block text-sm font-medium text-gray-700 mb-2">التفصيل</label>
 
                                         <div class="flex items-center mb-4" id="description-0">
@@ -136,12 +143,12 @@
                                     <!-- Save button -->
                                     <button type="submit"
                                         class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
-                                        Save
+                                        حفظ
                                     </button>
 
                                     <!-- Hide button -->
                                     <button type="button" onclick="toggleCreateRow()"
-                                        class="bg-gray-500 text-white p-2 rounded hover:bg-gray-600 absolute bottom-2 right-2 hidden"
+                                        class="bg-gray-500 text-white p-2 rounded hover:bg-gray-600 absolute bottom-2 right-0 hidden"
                                         id="hided">
                                         <svg class="h-4 w-4 text-white-400" fill="none" viewBox="0 0 24 24"
                                             stroke="currentColor">
@@ -154,22 +161,22 @@
                         </tr>
                     </tbody>
                 </table>
-                <div class="mt-10">
+                <div class="mt-10 rtl">
                     <!-- Show button -->
-                <button type="button" onclick="toggleCreateRow()"
-                class="bg-blue-500 text-white p-2 rounded hover:bg-blue-600 absolute bottom-2 right-2 "
-                id="showed">
-                <svg class="h-4 w-4 text-white-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M16 17l-4 4m0 0l-4-4m4 4V3" />
-                </svg>
-                </button>
+                    <button type="button" onclick="toggleCreateRow()"
+                        class="bg-blue-500 text-white p-2 rounded hover:bg-blue-600 absolute bottom-2 right-0"
+                        id="showed">
+                        <svg class="h-4 w-4 text-white-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M16 17l-4 4m0 0l-4-4m4 4V3" />
+                        </svg>
+                    </button>
                 </div>
 
             </div>
 
             <!-- Pagination Links -->
-            <div class="mt-4">
+            <div class="mt-4 rtl">
                 {{ $forms->links('pagination::tailwind') }}
             </div>
         @endif

@@ -49,6 +49,11 @@ class Form extends Model
     {
         return $this->morphMany(Description::class, 'describable');
     }
+    
+    public function ratings()
+    {
+        return $this->morphMany(Rate::class, 'rateable');
+    }
 
 
 

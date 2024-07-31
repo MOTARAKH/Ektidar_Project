@@ -12,11 +12,23 @@ class ReceptionController extends Controller
 {
     public function index()
     {
+        // Check if the user is not an admin
         if (Auth::user()->isAdmin != 1) {
-            $receptions = Reception::with('descriptions')->where('user_id', auth()->id())->paginate(3);
+            // For non-admins: only fetch forms owned by the authenticated user
+            $receptions = Reception::with(['descriptions', 'ratings'])
+                ->where('user_id', auth()->id())
+                ->paginate(3);
         } else {
-            $receptions = Reception::with('descriptions')->paginate(3);
+            // For admins: fetch all forms
+            $receptions = Reception::with(['descriptions', 'ratings'])
+                ->paginate(3);
         }
+
+        // Calculate the average rating for each form
+        foreach ($receptions as $reception) {
+            $reception->average_rating = $reception->ratings->avg('rating');
+        }
+
         return view('receptions.index', compact('receptions'));
     }
 
@@ -56,19 +68,15 @@ class ReceptionController extends Controller
     public function storeFromReceptionIndex(Request $request) : RedirectResponse
     {
         $validated = $request->validate([
-
             'side' => 'required|string|max:255',
             'descriptions' => 'array',
             'descriptions.*' => 'string|max:255'
         ]);
-
         // Create the form
         $receptions = Reception::create([
-
             'side' => $validated['side'],
             'user_id' => Auth::id(),
         ]);
-
         // Attach descriptions
         if (isset($validated['descriptions'])) {
             foreach ($validated['descriptions'] as $descriptionText) {
@@ -90,7 +98,13 @@ class ReceptionController extends Controller
      */
     public function show(Reception $reception)
     {
-        return view('receptions.show', compact('reception'));
+        $user = auth()->user();
+
+        // Fetch the user's rating for the form
+        $userRating = $user ? $reception->ratings()->where('user_id', $user->id)->first()->rating ?? 0 : 0;
+
+        // Pass the form and user's rating to the view
+        return view('receptions.show', compact('reception', 'userRating'));
     }
 
     /**

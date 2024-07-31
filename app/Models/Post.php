@@ -13,9 +13,9 @@ class Post extends Model
     use HasFactory;
     protected $table = 'posts';
     protected $fillable = [
-        'slug', 
         'title', 
-        'image_path', 
+        'side', 
+        'sidesParticipating', 
         'user_id'
     ];
 
@@ -37,4 +37,9 @@ class Post extends Model
         return $this->morphMany(Description::class, 'describable');
     }
 
+    public function ratings()
+    {
+        return $this->morphMany(Rate::class, 'rateable');
+    }
+    
 }
