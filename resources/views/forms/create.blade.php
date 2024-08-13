@@ -1,43 +1,52 @@
-
 <x-app-layout>
-    <div class="container mx-auto px-4 py-6">
-        <h1 class="text-3xl font-semibold text-gray-800 mb-6 border-b border-gray-200 pb-2">انشاء فورم</h1>
+    <div style="max-width: 1200px; margin: 0 auto; padding: 1.5rem;">
+        <h1 style="font-size: 1.875rem; font-weight: 600; color: #1f2937; margin-bottom: 1.5rem; border-bottom: 1px solid #e5e7eb; padding-bottom: 0.5rem; text-align: right;">
+            انشاء فورم
+        </h1>
 
-        <form action="{{ route('forms.store') }}" method="POST" class="bg-white shadow-md rounded-lg p-6">
+        <form action="{{ route('forms.store') }}" method="POST" style="background-color: #ffffff; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 0.5rem; padding: 1.5rem;">
             @csrf
 
             <input type="hidden" id="user_id" name="user_id" value="{{ auth()->id() }}">
 
-            <div class="mb-4">
-                <label for="title" class="block text-sm font-medium text-gray-700 mb-1 text-right">عنوان</label>
+            <div style="margin-bottom: 1rem;">
+                <label for="title" style="display: block; font-size: 0.875rem; font-weight: 500; color: #4b5563; margin-bottom: 0.25rem; text-align: right;">
+                    عنوان
+                </label>
                 <input type="text" id="title" name="title" required dir="rtl"
-                    class="form-input block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50 text-right">
+                    style="width: 100%; border: 1px solid #d1d5db; border-radius: 0.375rem; padding: 0.5rem; font-size: 0.875rem; text-align: right;">
             </div>
 
-            <div class="mb-4">
-                <label for="side" class="block text-sm font-medium text-gray-700 mb-1 text-right">جهة</label>
+            <div style="margin-bottom: 1rem;">
+                <label for="side" style="display: block; font-size: 0.875rem; font-weight: 500; color: #4b5563; margin-bottom: 0.25rem; text-align: right;">
+                    جهة
+                </label>
                 <input type="text" id="side" name="side" required dir="rtl"
-                    class="form-input block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50 text-right">
+                    style="width: 100%; border: 1px solid #d1d5db; border-radius: 0.375rem; padding: 0.5rem; font-size: 0.875rem; text-align: right;">
             </div>
 
-            <div id="descriptions-container">
-                <label for="description-1" class="block text-sm font-medium text-gray-700 mb-1 text-right">وصف</label>
-                <div class="mb-4 flex items-center">
+            <div id="descriptions-container" style="margin-bottom: 1.5rem;">
+                <label for="description-1" style="display: block; font-size: 0.875rem; font-weight: 500; color: #4b5563; margin-bottom: 0.25rem; text-align: right;">
+                    وصف
+                </label>
+                <div style="margin-bottom: 1rem; display: flex; align-items: center;">
                     <button type="button" onclick="addDescriptionField()"
-                        class="mr-4 text-indigo-600 hover:text-indigo-800 focus:outline-none">
-                        <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                            aria-hidden="true">
-                            <path
-                                d="M12 4.75a.75.75 0 0 1 .75.75v6.5h6.5a.75.75 0 0 1 0 1.5h-6.5v6.5a.75.75 0 0 1-1.5 0v-6.5H4.75a.75.75 0 0 1 0-1.5h6.5v-6.5A.75.75 0 0 1 12 4.75z" />
+                        style="margin-right: 1rem; color: #3b82f6; background-color: transparent; border: none; cursor: pointer; transition: color 0.15s ease-in-out;"
+                        onmouseover="this.style.color='#2563eb';"
+                        onmouseout="this.style.color='#3b82f6';">
+                        <svg style="width: 1.5rem; height: 1.5rem;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <path d="M12 4.75a.75.75 0 0 1 .75.75v6.5h6.5a.75.75 0 0 1 0 1.5h-6.5v6.5a.75.75 0 0 1-1.5 0v-6.5H4.75a.75.75 0 0 1 0-1.5h6.5v-6.5A.75.75 0 0 1 12 4.75z" />
                         </svg>
                     </button>
                     <input type="text" id="description-1" name="descriptions[]" placeholder="اكتب الوصف هنا" dir="rtl"
-                        class="form-input block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50 text-right">
+                        style="flex: 1; border: 1px solid #d1d5db; border-radius: 0.375rem; padding: 0.5rem; font-size: 0.875rem; text-align: right;">
                 </div>
             </div>
 
             <button type="submit"
-                class="w-full bg-indigo-600 text-white px-4 py-2 rounded-md shadow hover:bg-indigo-700 focus:outline-none focus:ring focus:ring-indigo-500 focus:ring-opacity-50">
+                style="width: 100%; background-color: #4f46e5; color: #ffffff; padding: 0.5rem 1rem; border-radius: 0.375rem; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); cursor: pointer; transition: background-color 0.15s ease-in-out;"
+                onmouseover="this.style.backgroundColor='#4338ca';"
+                onmouseout="this.style.backgroundColor='#4f46e5';">
                 Submit
             </button>
         </form>

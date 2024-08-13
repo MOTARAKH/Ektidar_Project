@@ -28,15 +28,17 @@
                 @endif
             </div>
 
-            <div class="mb-6 rating flex items-center">
-                <!-- Star rating system -->
-                @for ($i = 1; $i <= 5; $i++)
-                    <svg class="h-5 w-5 cursor-pointer {{ $i <= $userRating ? 'text-yellow-500' : 'text-gray-300' }} mx-1" data-rating="{{ $i }}" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 17.27L18.18 21 16.54 13.97 22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
-                    </svg>
-                @endfor
-                <input type="hidden" name="rating" id="rating-input" value="{{ old('rating', $userRating) }}">
-            </div>
+            @if (Auth::user()->isAdmin === 1)
+                <div class="mb-6 rating flex items-center">
+                    <!-- Star rating system -->
+                    @for ($i = 1; $i <= 5; $i++)
+                        <svg class="h-5 w-5 cursor-pointer {{ $i <= $userRating ? 'text-yellow-500' : 'text-gray-300' }} mx-1" data-rating="{{ $i }}" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 17.27L18.18 21 16.54 13.97 22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                        </svg>
+                    @endfor
+                    <input type="hidden" name="rating" id="rating-input" value="{{ old('rating', $userRating) }}">
+                </div>
+            @endif
 
             <a href="{{ route('forms.index') }}"
                class="inline-block bg-gray-800 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition duration-150 rtl">

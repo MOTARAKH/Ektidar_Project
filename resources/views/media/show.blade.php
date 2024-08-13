@@ -29,7 +29,8 @@
                     </ul>
                 @endif
             </div>
-
+            
+            @if (Auth::user()->isAdmin === 1)
             <div class="mb-6 rating flex items-center">
                 <!-- Star rating system -->
                 @for ($i = 1; $i <= 5; $i++)
@@ -39,7 +40,7 @@
                 @endfor
                 <input type="hidden" name="rating" id="rating-input" value="{{ old('rating', $userRating) }}">
             </div>
-
+            @endif
             <a href="{{ route('media.index') }}"
                class="inline-block bg-gray-800 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition duration-150 rtl">
                 العودة 

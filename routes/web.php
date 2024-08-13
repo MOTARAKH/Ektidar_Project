@@ -8,7 +8,12 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\RatingController;
 use App\Http\Controllers\ReceptionController;
 use App\Http\Controllers\VisitController;
+use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
+// Guest
+Route::get('/', [WelcomeController::class,'welcome'])->name('welcome');
+// Logged in
+
 Route::middleware('auth')->group(function () {
     /** choose a month */
     Route::post('/storeMonth', function (Illuminate\Http\Request $request) {
@@ -36,11 +41,6 @@ Route::middleware('auth')->group(function () {
     Route::post('/storeFromPostIndex', [PostController::class, 'storeFromPostIndex'])->name('post.storeFromPostIndex');
     // rating-route // 
     Route::post('/ratings', [RatingController::class, 'store'])->name('ratings.store');
-});
-
-
-Route::get('/', function () {
-    return view('welcome');
 });
 
 Route::get('/dashboard', function () {
