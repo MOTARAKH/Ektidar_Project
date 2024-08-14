@@ -6,22 +6,20 @@
             <div class="mb-6">
                 <h2 class="text-xl font-semibold mb-2 text-right">معلومات النموذج</h2>
                 <div class="space-y-2 rtl">
-                    <p><strong class="text-gray-600">الرقم التعريفي:</strong> <span class="text-gray-800">{{ $media->id }}</span></p>
-                    <p><strong class="text-gray-600">نوع:</strong> <span class="text-gray-800">{{ $media->type }}</span></p>
-                    <p><strong class="text-gray-600">اوتليت:</strong> <span class="text-gray-800">{{ $media->MediaOutlet }}</span></p>
-                    <p><strong class="text-gray-600">الموضوع:</strong> <span class="text-gray-800">{{ $media->topic }}</span></p>
-                    <p><strong class="text-gray-600">المشاركين:</strong> <span class="text-gray-800">{{ $media->ParticipatingParties }}</span></p>
+                    <p><strong class="text-gray-600">الرقم التعريفي:</strong> <span class="text-gray-800">{{ $activity->id }}</span></p>
+                    <p><strong class="text-gray-600">عنوان النشاط:</strong> <span class="text-gray-800">{{ $activity->address }}</span></p>
+                    <p><strong class="text-gray-600">المشاركين:</strong> <span class="text-gray-800">{{ $activity->side }}</span></p>
                     <p><strong class="text-gray-600">المستخدم:</strong></p>
                 </div>
             </div>
 
             <div class="mb-6">
                 <h2 class="text-xl font-semibold mb-2 text-right">التفاصيل</h2>
-                @if ($media->descriptions->isEmpty())
+                @if ($activity->descriptions->isEmpty())
                     <p class="text-gray-600 text-right">لا توجد تفاصيل متاحة.</p>
                 @else
                     <ul class="space-y-2 rtl">
-                        @foreach ($media->descriptions as $description)
+                        @foreach ($activity->descriptions as $description)
                             <li class="bg-gray-100 p-4 rounded-lg shadow-sm">
                                 <p class="text-gray-800">{{ $description->description }}</p>
                             </li>
@@ -40,7 +38,7 @@
                 <input type="hidden" name="rating" id="rating-input" value="{{ old('rating', $userRating) }}">
             </div>
 
-            <a href="{{ route('media.index') }}"
+            <a href="{{ route('activities.index') }}"
                class="inline-block bg-gray-800 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition duration-150 rtl">
                 العودة 
             </a>
@@ -88,8 +86,8 @@
                             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
                         },
                         body: JSON.stringify({
-                            rateable_id: '{{ $media->id }}',
-                            rateable_type: 'App\\Models\\Media',
+                            rateable_id: '{{ $activity->id }}',
+                            rateable_type: 'App\\Models\\Activity',
                             rating: rating
                         })
                     })

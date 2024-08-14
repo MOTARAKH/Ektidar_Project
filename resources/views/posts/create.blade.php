@@ -3,7 +3,7 @@
     <div class="container mx-auto px-4 py-6">
         <h1 class="text-3xl font-semibold text-gray-800 mb-6 border-b border-gray-200 pb-2">انشاء فورم</h1>
 
-        <form action="{{ route('media.store') }}" method="POST" class="bg-white shadow-md rounded-lg p-6">
+        <form action="{{ route('posts.store') }}" method="POST" class="bg-white shadow-md rounded-lg p-6">
             @csrf
 
             <input type="hidden" id="user_id" name="user_id" value="{{ auth()->id() }}">
@@ -12,26 +12,20 @@
 
             <div class="mb-4">
                 <label for="type"
-                    class="block text-sm font-medium text-gray-700">النوع</label>
-                <input type="text" id="type" name="type" required
-                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-            </div>
-            <div class="mb-4">
-                <label for="MediaOutlet"
-                    class="block text-sm font-medium text-gray-700"> الوسيلة الاعلامية</label>
-                <input type="text" id="MediaOutlet" name="MediaOutlet" required
+                    class="block text-sm font-medium text-gray-700">العنوان</label>
+                <input type="text" id="type" name="title" required
                     class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
             </div>
             <div class="mb-4">
                 <label for="topic"
-                    class="block text-sm font-medium text-gray-700">الموضوع</label>
-                <input type="text" id="topic" name="topic" required
+                    class="block text-sm font-medium text-gray-700">الجهة</label>
+                <input type="text" id="topic" name="side" required
                     class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
             </div>
             <div class="mb-4">
                 <label for="ParticipatingParties"
                     class="block text-sm font-medium text-gray-700"> الجهات المشاركة</label>
-                <input type="text" id="ParticipatingParties" name="ParticipatingParties" required
+                <input type="text" id="sidesParticipating" name="sidesParticipating" required
                     class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
             </div>
 

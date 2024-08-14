@@ -3,39 +3,25 @@
     <div class="container mx-auto p-6 bg-white shadow-md rounded-lg mt-2" dir="rtl">
         <h1 class="text-2xl font-bold mb-4">تعديل</h1>
         
-        <form action="{{ route('media.update', $media->id) }}" method="POST">
+        <form action="{{ route('activities.update', $activity->id) }}" method="POST">
             @csrf
             @method('PUT')
 
             <!-- Hidden user_id input -->
-            <input type="hidden" name="user_id" value="{{ $media->user_id }}">
+            <input type="hidden" name="user_id" value="{{ $activity->user_id }}">
 
 
             <!-- Type input -->
             <div class="mb-4">
-                <label for="type" class="block text-sm font-medium text-gray-700">النوع</label>
-                <input type="text" id="type" name="type" value="{{ $media->type }}" required
+                <label for="type" class="block text-sm font-medium text-gray-700">عنوان النشاط</label>
+                <input type="text" id="type" name="address" value="{{ $activity->address }}" required
                     class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
             </div>
-
-            <!-- Media Outlet input -->
-            <div class="mb-4">
-                <label for="MediaOutlet" class="block text-sm font-medium text-gray-700">الوسيلة الإعلامية</label>
-                <input type="text" id="MediaOutlet" name="MediaOutlet" value="{{ $media->MediaOutlet }}" required
-                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-            </div>
-
-            <!-- Topic input -->
-            <div class="mb-4">
-                <label for="topic" class="block text-sm font-medium text-gray-700">الموضوع</label>
-                <input type="text" id="topic" name="topic" value="{{ $media->topic }}" required
-                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-            </div>
-
+           
             <!-- Participating Parties input -->
             <div class="mb-4">
-                <label for="ParticipatingParties" class="block text-sm font-medium text-gray-700">الجهات المشاركة</label>
-                <input type="text" id="ParticipatingParties" name="ParticipatingParties" value="{{ $media->ParticipatingParties }}" required
+                <label for="ParticipatingParties" class="block text-sm font-medium text-gray-700">الجهات  الخارجية المشاركة</label>
+                <input type="text" id="ParticipatingParties" name="side" value="{{ $activity->side }}" required
                     class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
             </div>
 
@@ -43,7 +29,7 @@
             <div id="descriptions-container" class="mb-6">
                 <label class="block text-sm font-medium text-gray-700 mb-2">التفصيل</label>
 
-                @foreach ($media->descriptions as $index => $description)
+                @foreach ($activity->descriptions as $index => $description)
                     <div class="flex items-center mb-4" id="description-{{ $index }}">
                         <input type="text" name="descriptions[]" value="{{ $description->description }}"
                             class="flex-1 block border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
@@ -87,7 +73,7 @@
     </div>
 
     <script>
-        let descriptionCount = {{ $media->descriptions->count() }};
+        let descriptionCount = {{ $activity->descriptions->count() }};
     </script>
     <script src="{{ asset('js/forms/edit.js') }}"></script>
 </x-app-layout>

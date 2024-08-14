@@ -1,12 +1,12 @@
 <x-app-layout>
     <div class="container mx-auto px-4 py-6">
-        <h1 class="text-4xl font-bold mb-6">الحركة الاعلامية</h1>
-        <a href="{{ route('media.create') }}"
+        <h1 class="text-4xl font-bold mb-6">الانشطة المختلفة</h1>
+        <a href="{{ route('activities.create') }}"
             class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition duration-150 mb-6 inline-block">
             اضافة
         </a>
 
-        @if ($medias->isEmpty())
+        @if ($activities->isEmpty())
             <div class="bg-yellow-100 text-yellow-800 p-4 rounded-lg shadow-md">
                 No forms available. Click the "Create New Form" button to add a form.
             </div>
@@ -17,18 +17,10 @@
                         <tr>
                             <th
                                 class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-300">
-                                النوع
-                            </th>
-                            <th
-                                class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-300">
-                                الوسيلة الاعلامية
-                            </th>
-                            <th
-                                class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-300">
-                                الموضوع
+                                عنوان النشاط
                             </th>
                             <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                الجهات المشاركة
+                                الجهات المشاركة الخارجية
                             </th>
                             <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 التفصيل
@@ -42,19 +34,15 @@
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
-                        @foreach ($medias as $media)
+                        @foreach ($activities as $activity)
                             <tr>
-                                <td class="px-6 py-4 whitespace-nowrap border-r border-gray-300">{{ $media->type }}
+                                <td class="px-6 py-4 whitespace-nowrap border-r border-gray-300">{{ $activity->address }}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap border-r border-gray-300">
-                                    {{ $media->MediaOutlet }}</td>
-                                <td class="px-6 py-4 whitespace-nowrap border-r border-gray-300">{{ $media->topic }}
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap border-r border-gray-300">
-                                    {{ $media->ParticipatingParties }}</td>
+                                    {{ $activity->side }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap border-r border-gray-300">
                                     <ul class="list-disc pl-5 space-y-1">
-                                        @forelse ($media->descriptions as $description)
+                                        @forelse ($activity->descriptions as $description)
                                             <li>{{ $description->description }}</li>
                                         @empty
                                             <li>No descriptions</li>
@@ -62,15 +50,15 @@
                                     </ul>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap border-r border-gray-300">
-                                    @isset($media->average_rating)
-                                        {{ number_format($media->average_rating, 2) }}
+                                    @isset($activity->average_rating)
+                                        {{ number_format($activity->average_rating, 2) }}
                                     @else
                                         لا يوجد لحد الان
                                     @endisset
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap border-r border-gray-300">
                                     <div class="flex space-x-1">
-                                        <a href="{{ route('media.show', $media) }}"
+                                        <a href="{{ route('activities.show', $activity) }}"
                                             class="bg-teal-500 text-white px-3 py-1 rounded-lg hover:bg-teal-600 transition duration-150 ml-1">
                                             <svg class="h-5 w-5 inline-block" fill="none" stroke="currentColor"
                                                 viewBox="0 0 24 24">
@@ -78,8 +66,8 @@
                                                     d="M15 12H9m0 0l-3 3m3-3l3-3m6 3v3a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-3M9 12h6" />
                                             </svg>
                                         </a>
-                                        @if (!$media->finished == 1 || ($media->finished == 1 && Auth::user()->isAdmin == 1))
-                                            <a href="{{ route('media.edit', $media) }}"
+                                        @if (!$activity->finished == 1 || ($activity->finished == 1 && Auth::user()->isAdmin == 1))
+                                            <a href="{{ route('activities.edit', $activity) }}"
                                                 class="bg-yellow-600 text-white px-3 py-1 rounded-lg hover:bg-yellow-700 transition duration-150">
                                                 <svg class="h-5 w-5 inline-block" fill="none" stroke="currentColor"
                                                     viewBox="0 0 24 24">
@@ -88,7 +76,7 @@
                                                         d="M12 20h9m0 0h-9m9 0V4m0 16v-8m0 8H3m3 0v-8m0 8v8" />
                                                 </svg>
                                             </a>
-                                        <form action="{{ route('media.destroy', $media) }}" method="POST">
+                                        <form action="{{ route('activities.destroy', $activity) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit"
@@ -106,10 +94,10 @@
                             </tr>
                         @endforeach
 
-                        <!-- New Form Row -->
+                        {{-- <!-- New Form Row -->
                         <tr id="create-row" class="bg-gray-50 hidden">
                             <td colspan="4" class="px-6 py-4">
-                                <form id="create-form" action="{{ route('media.storeFromMediaIndex') }}"
+                                <form id="create-form" action="{{ route('activity.storeFromMediaIndex') }}"
                                     method="POST">
                                     @csrf
 
@@ -133,10 +121,10 @@
                                     </button>
                                 </form>
                             </td>
-                        </tr>
+                        </tr> --}}
                     </tbody>
                 </table>
-                <div class="mt-10">
+                {{-- <div class="mt-10">
                     <!-- Show button -->
                     <button type="button" onclick="toggleCreateRow()"
                         class="bg-blue-500 text-white p-2 rounded hover:bg-blue-600 absolute bottom-2 right-0 "
@@ -146,11 +134,11 @@
                                 d="M16 17l-4 4m0 0l-4-4m4 4V3" />
                         </svg>
                     </button>
-                </div>
+                </div> --}}
             </div>
 
             <div class="mt-4">
-                {{ $medias->links('pagination::tailwind') }}
+                {{ $activities->links('pagination::tailwind') }}
             </div>
         @endif
     </div>

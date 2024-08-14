@@ -26,7 +26,8 @@ class Activity extends Model
     protected $fillable = [
         'address',
         'side',
-        'user_id'
+        'user_id',
+        'finished'
     ];
 
     /**
@@ -66,4 +67,22 @@ class Activity extends Model
         return $this->morphMany(Rate::class, 'rateable');
     }
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        // Delete descriptions when a form is deleted
+        static::deleting(function ($form) {
+            $form->descriptions()->delete();
+        });
+
+        static::creating(function ($form) {
+            // $form->month = now()->month;
+            // $form->year = now()->year;
+            // if (session()->has('selected_month')) {
+            //     $form->month = session('selected_month');
+            // }
+            $form->finished = 0;
+        });
+    }
 }

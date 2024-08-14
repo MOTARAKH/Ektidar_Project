@@ -67,13 +67,13 @@
                     onmouseout="this.style.backgroundColor='#2563eb';">
                     الحركة الاعلامية
                 </a>
-                <a href="{{ route('forms.index') }}"
+                <a href="{{ route('activities.index') }}"
                     style="background-color: #2563eb; color: white; padding: 0.75rem 1.5rem; border-radius: 0.5rem; display: inline-block; margin-bottom: 1.5rem; transition: background-color 0.15s ease-in-out;"
                     onmouseover="this.style.backgroundColor='#1d4ed8';"
                     onmouseout="this.style.backgroundColor='#2563eb';">
                     الانشطة المختلفة
                 </a>
-                <a href="{{ route('forms.index') }}"
+                <a href="{{ route('posts.index') }}"
                     style="background-color: #2563eb; color: white; padding: 0.75rem 1.5rem; border-radius: 0.5rem; display: inline-block; margin-bottom: 1.5rem; transition: background-color 0.15s ease-in-out;"
                     onmouseover="this.style.backgroundColor='#1d4ed8';"
                     onmouseout="this.style.backgroundColor='#2563eb';">

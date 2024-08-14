@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Activity;
@@ -36,7 +37,7 @@ class WelcomeController extends Controller
             // ->orderByRaw('AVG(rates.value) DESC')
             ->with(['descriptions', 'ratings'])
             ->paginate($perPage);
-        
+
         // Calculate the average rating for each form
         foreach ($receptions as $reception) {
             $reception->average_rating = $reception->ratings->avg('rating');
@@ -50,12 +51,11 @@ class WelcomeController extends Controller
             // ->orderByRaw('AVG(rates.value) DESC')
             ->with(['descriptions', 'ratings'])
             ->paginate($perPage);
-        
+
         // Calculate the average rating for each form
         foreach ($visits as $visit) {
             $visit->average_rating = $visit->ratings->avg('rating');
         }
-
         // Paginate posts and order by average rating
         $posts = Post::select('posts.*')
             ->join('rates', 'rates.rateable_id', '=', 'posts.id')
@@ -64,8 +64,12 @@ class WelcomeController extends Controller
             // ->orderByRaw('AVG(rates.value) DESC')
             ->with(['descriptions', 'ratings'])
             ->paginate($perPage);
-
+        
         // for each posts
+        // Calculate the average rating for each form
+        foreach ($posts as $post) {
+            $post->average_rating = $post->ratings->avg('rating');
+        }
 
         // Paginate medias and order by average rating
         $medias = Media::select('medias.*')
@@ -76,7 +80,7 @@ class WelcomeController extends Controller
             ->with(['descriptions', 'ratings'])
             ->paginate($perPage);
 
-        
+
         // Calculate the average rating for each form
         foreach ($medias as $media) {
             $media->average_rating = $media->ratings->avg('rating');
@@ -90,8 +94,11 @@ class WelcomeController extends Controller
             // ->orderByRaw('AVG(rates.value) DESC')
             ->with(['descriptions', 'ratings'])
             ->paginate($perPage);
-        
-        
+        // Calculate the average rating for each form
+        foreach ($activities as $activity) {
+            $activity->average_rating = $activity->ratings->avg('rating');
+        }
+
 
         return view('welcome.welcome', compact('forms', 'receptions', 'visits', 'posts', 'medias', 'activities'));
     }

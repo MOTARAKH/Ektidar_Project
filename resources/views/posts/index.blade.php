@@ -1,14 +1,14 @@
 <x-app-layout>
     <div class="container mx-auto px-4 py-6">
-        <h1 class="text-4xl font-bold mb-6">الحركة الاعلامية</h1>
-        <a href="{{ route('media.create') }}"
+        <h1 class="text-4xl font-bold mb-6"> المشاركات المختلفة</h1>
+        <a href="{{ route('posts.create') }}"
             class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition duration-150 mb-6 inline-block">
             اضافة
         </a>
 
-        @if ($medias->isEmpty())
+        @if ($posts->isEmpty())
             <div class="bg-yellow-100 text-yellow-800 p-4 rounded-lg shadow-md">
-                No forms available. Click the "Create New Form" button to add a form.
+                No posts available. Click the "Create New Post" button to add a post.
             </div>
         @else
             <div class="overflow-x-auto relative">
@@ -17,15 +17,11 @@
                         <tr>
                             <th
                                 class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-300">
-                                النوع
+                                عنوان
                             </th>
                             <th
                                 class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-300">
-                                الوسيلة الاعلامية
-                            </th>
-                            <th
-                                class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-300">
-                                الموضوع
+                                الجهة
                             </th>
                             <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 الجهات المشاركة
@@ -42,16 +38,15 @@
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
-                        @foreach ($medias as $media)
+                        @foreach ($posts as $media)
                             <tr>
-                                <td class="px-6 py-4 whitespace-nowrap border-r border-gray-300">{{ $media->type }}
+                                <td class="px-6 py-4 whitespace-nowrap border-r border-gray-300">{{ $media->title }}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap border-r border-gray-300">
-                                    {{ $media->MediaOutlet }}</td>
-                                <td class="px-6 py-4 whitespace-nowrap border-r border-gray-300">{{ $media->topic }}
-                                </td>
+                                    {{ $media->side }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap border-r border-gray-300">
-                                    {{ $media->ParticipatingParties }}</td>
+                                    {{ $media->sidesParticipating }}
+                                </td>
                                 <td class="px-6 py-4 whitespace-nowrap border-r border-gray-300">
                                     <ul class="list-disc pl-5 space-y-1">
                                         @forelse ($media->descriptions as $description)
@@ -70,7 +65,7 @@
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap border-r border-gray-300">
                                     <div class="flex space-x-1">
-                                        <a href="{{ route('media.show', $media) }}"
+                                        <a href="{{ route('posts.show', $media) }}"
                                             class="bg-teal-500 text-white px-3 py-1 rounded-lg hover:bg-teal-600 transition duration-150 ml-1">
                                             <svg class="h-5 w-5 inline-block" fill="none" stroke="currentColor"
                                                 viewBox="0 0 24 24">
@@ -79,7 +74,7 @@
                                             </svg>
                                         </a>
                                         @if (!$media->finished == 1 || ($media->finished == 1 && Auth::user()->isAdmin == 1))
-                                            <a href="{{ route('media.edit', $media) }}"
+                                            <a href="{{ route('posts.edit', $media->id) }}"
                                                 class="bg-yellow-600 text-white px-3 py-1 rounded-lg hover:bg-yellow-700 transition duration-150">
                                                 <svg class="h-5 w-5 inline-block" fill="none" stroke="currentColor"
                                                     viewBox="0 0 24 24">
@@ -88,25 +83,25 @@
                                                         d="M12 20h9m0 0h-9m9 0V4m0 16v-8m0 8H3m3 0v-8m0 8v8" />
                                                 </svg>
                                             </a>
-                                        <form action="{{ route('media.destroy', $media) }}" method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit"
-                                                class="bg-red-600 text-white px-3 py-1 rounded-lg hover:bg-red-700 transition duration-150">
-                                                <svg class="h-5 w-5 inline-block" fill="none" stroke="currentColor"
-                                                    viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                                                </svg>
-                                            </button>
-                                        </form>
+                                            <form action="{{ route('posts.destroy', $media->id) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit"
+                                                    class="bg-red-600 text-white px-3 py-1 rounded-lg hover:bg-red-700 transition duration-150">
+                                                    <svg class="h-5 w-5 inline-block" fill="none"
+                                                        stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                                    </svg>
+                                                </button>
+                                            </form>
                                         @endif
                                     </div>
                                 </td>
                             </tr>
                         @endforeach
 
-                        <!-- New Form Row -->
+                        {{-- <!-- New Form Row -->
                         <tr id="create-row" class="bg-gray-50 hidden">
                             <td colspan="4" class="px-6 py-4">
                                 <form id="create-form" action="{{ route('media.storeFromMediaIndex') }}"
@@ -133,10 +128,10 @@
                                     </button>
                                 </form>
                             </td>
-                        </tr>
+                        </tr> --}}
                     </tbody>
                 </table>
-                <div class="mt-10">
+                {{-- <div class="mt-10">
                     <!-- Show button -->
                     <button type="button" onclick="toggleCreateRow()"
                         class="bg-blue-500 text-white p-2 rounded hover:bg-blue-600 absolute bottom-2 right-0 "
@@ -146,11 +141,11 @@
                                 d="M16 17l-4 4m0 0l-4-4m4 4V3" />
                         </svg>
                     </button>
-                </div>
+                </div> --}}
             </div>
 
             <div class="mt-4">
-                {{ $medias->links('pagination::tailwind') }}
+                {{ $posts->links('pagination::tailwind') }}
             </div>
         @endif
     </div>

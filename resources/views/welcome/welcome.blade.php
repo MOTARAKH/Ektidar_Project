@@ -321,12 +321,162 @@
 
 
         {{-- posts --}}
-        <div class="container mx-auto px-4 py-6 rtl">posts</div>
+        <div class="container mx-auto px-4 py-6 rtl">
+            <h1 class="text-4xl font-bold mb-6 text-right">المشاركات المختلفة</h1>
+            @if ($posts->isEmpty())
+                <div class="bg-yellow-100 text-yellow-800 p-4 rounded-lg shadow-md">
+                    لا توجد نماذج متاحة
+                </div>
+            @else
+                <div class="overflow-x-auto relative rtl">
+                    <table
+                        class="min-w-full divide-y divide-gray-200 bg-white shadow-md rounded-lg border border-gray-300">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th
+                                    class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-300">
+                                    عنوان النشاط
+                                </th>
+                                <th
+                                    class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-300">
+                                    الجهة المنظمة
+                                </th>
+                                <th
+                                    class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-300">
+                                    الجهات المشاركة
+                                </th>
+                                <th
+                                    class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-300">
+                                    التفصيل
+                                </th>
+                                <th
+                                    class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-300">
+                                    نسبة الاعجاب
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            @foreach ($posts as $post)
+                                <tr>
+                                <td class="px-6 py-4 whitespace-nowrap border-r border-gray-300">
+                                        {{ $post->title }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap border-r border-gray-300">
+                                        {{ $post->side }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap border-r border-gray-300">
+                                        {{ $post->sidesParticipating }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap border-r border-gray-300">
+                                        <ul class="list-disc pl-5 space-y-1">
+                                            @forelse ($post->descriptions as $description)
+                                                <li>{{ $description->description }}</li>
+                                            @empty
+                                                <li>لا يوجد تفاصيل</li>
+                                            @endforelse
+                                        </ul>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap border-r border-gray-300">
+                                        @isset($post->average_rating)
+                                            <div class="mb-6 rating flex items-center">
+                                                <!-- Star rating system -->
+                                                @for ($i = 1; $i <= 5; $i++)
+                                                    <svg class="h-5 w-5 cursor-pointer {{ $i <= $visit->average_rating ? 'text-yellow-500' : 'text-gray-300' }} mx-1"
+                                                        data-rating="{{ $i }}" fill="currentColor"
+                                                        viewBox="0 0 24 24">
+                                                        <path
+                                                            d="M12 17.27L18.18 21 16.54 13.97 22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                                                    </svg>
+                                                @endfor
+                                            </div>
+                                        @endisset
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pagination Links -->
+                <div class="mt-4 rtl">
+                    {{ $posts->links('pagination::tailwind') }}
+                </div>
+            @endif
+        </div> 
         {{-- end posts --}}
 
-        {{-- posts --}}
-        <div class="container mx-auto px-4 py-6 rtl">activities</div>
-        {{-- end posts --}}
+        {{-- activities --}}
+        <div class="container mx-auto px-4 py-6 rtl">
+            <h1 class="text-4xl font-bold mb-6 text-right">الانشطة المختلفة</h1>
+            @if ($activities->isEmpty())
+                <div class="bg-yellow-100 text-yellow-800 p-4 rounded-lg shadow-md">
+                    لا توجد نماذج متاحة
+                </div>
+            @else
+                <div class="overflow-x-auto relative rtl">
+                    <table
+                        class="min-w-full divide-y divide-gray-200 bg-white shadow-md rounded-lg border border-gray-300">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th
+                                    class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-300">
+                                    عنوان النشاط
+                                </th>
+                                <th
+                                    class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-300">
+                                    الجهات الخارجية المشاركة
+                                </th>
+                                <th
+                                    class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-300">
+                                    التفصيل
+                                </th>
+                                <th
+                                    class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-300">
+                                    نسبة الاعجاب
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            @foreach ($activities as $activity)
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap border-r border-gray-300">
+                                        {{ $activity->address }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap border-r border-gray-300">
+                                    {{ $activity->side }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap border-r border-gray-300">
+                                        <ul class="list-disc pl-5 space-y-1">
+                                            @forelse ($activity->descriptions as $description)
+                                                <li>{{ $description->description }}</li>
+                                            @empty
+                                                <li>لا يوجد تفاصيل</li>
+                                            @endforelse
+                                        </ul>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap border-r border-gray-300">
+                                        @isset($activity->average_rating)
+                                            <div class="mb-6 rating flex items-center">
+                                                <!-- Star rating system -->
+                                                @for ($i = 1; $i <= 5; $i++)
+                                                    <svg class="h-5 w-5 cursor-pointer {{ $i <= $visit->average_rating ? 'text-yellow-500' : 'text-gray-300' }} mx-1"
+                                                        data-rating="{{ $i }}" fill="currentColor"
+                                                        viewBox="0 0 24 24">
+                                                        <path
+                                                            d="M12 17.27L18.18 21 16.54 13.97 22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                                                    </svg>
+                                                @endfor
+                                            </div>
+                                        @endisset
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pagination Links -->
+                <div class="mt-4 rtl">
+                    {{ $activities->links('pagination::tailwind') }}
+                </div>
+            @endif
+        </div> 
+        {{-- end activities --}}
     </div>
 
     <style>

@@ -7,10 +7,9 @@
                 <h2 class="text-xl font-semibold mb-2 text-right">معلومات النموذج</h2>
                 <div class="space-y-2 rtl">
                     <p><strong class="text-gray-600">الرقم التعريفي:</strong> <span class="text-gray-800">{{ $media->id }}</span></p>
-                    <p><strong class="text-gray-600">نوع:</strong> <span class="text-gray-800">{{ $media->type }}</span></p>
-                    <p><strong class="text-gray-600">اوتليت:</strong> <span class="text-gray-800">{{ $media->MediaOutlet }}</span></p>
-                    <p><strong class="text-gray-600">الموضوع:</strong> <span class="text-gray-800">{{ $media->topic }}</span></p>
-                    <p><strong class="text-gray-600">المشاركين:</strong> <span class="text-gray-800">{{ $media->ParticipatingParties }}</span></p>
+                    <p><strong class="text-gray-600">عنوان:</strong> <span class="text-gray-800">{{ $media->title }}</span></p>
+                    <p><strong class="text-gray-600">جهة:</strong> <span class="text-gray-800">{{ $media->side }}</span></p>
+                    <p><strong class="text-gray-600">جهات مشاركة:</strong> <span class="text-gray-800">{{ $media->sidesParticipating }}</span></p>
                     <p><strong class="text-gray-600">المستخدم:</strong></p>
                 </div>
             </div>
@@ -40,7 +39,7 @@
                 <input type="hidden" name="rating" id="rating-input" value="{{ old('rating', $userRating) }}">
             </div>
 
-            <a href="{{ route('media.index') }}"
+            <a href="{{ route('posts.index') }}"
                class="inline-block bg-gray-800 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition duration-150 rtl">
                 العودة 
             </a>
@@ -89,7 +88,7 @@
                         },
                         body: JSON.stringify({
                             rateable_id: '{{ $media->id }}',
-                            rateable_type: 'App\\Models\\Media',
+                            rateable_type: 'App\\Models\\Post',
                             rating: rating
                         })
                     })

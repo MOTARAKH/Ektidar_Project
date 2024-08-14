@@ -16,7 +16,8 @@ class Post extends Model
         'title', 
         'side', 
         'sidesParticipating', 
-        'user_id'
+        'user_id',
+        'finished'
     ];
 
     /* get the post owner from the post itself */

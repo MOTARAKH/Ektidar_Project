@@ -1,40 +1,24 @@
 
 <x-app-layout>
     <div class="container mx-auto px-4 py-6">
-        <h1 class="text-3xl font-semibold text-gray-800 mb-6 border-b border-gray-200 pb-2">انشاء فورم</h1>
+        <h1 class="text-3xl font-semibold text-gray-800 mb-6 border-b border-gray-200 pb-2">انشاء نشاط</h1>
 
-        <form action="{{ route('media.store') }}" method="POST" class="bg-white shadow-md rounded-lg p-6">
+        <form action="{{ route('activities.store') }}" method="POST" class="bg-white shadow-md rounded-lg p-6">
             @csrf
 
             <input type="hidden" id="user_id" name="user_id" value="{{ auth()->id() }}">
-
-
-
             <div class="mb-4">
                 <label for="type"
-                    class="block text-sm font-medium text-gray-700">النوع</label>
-                <input type="text" id="type" name="type" required
+                    class="block text-sm font-medium text-gray-700">عنوان النشاط</label>
+                <input type="text" id="type" name="address" required
                     class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
             </div>
             <div class="mb-4">
                 <label for="MediaOutlet"
-                    class="block text-sm font-medium text-gray-700"> الوسيلة الاعلامية</label>
-                <input type="text" id="MediaOutlet" name="MediaOutlet" required
+                    class="block text-sm font-medium text-gray-700">الجهات الخارجية المشاركة</label>
+                <input type="text" id="MediaOutlet" name="side" required
                     class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
             </div>
-            <div class="mb-4">
-                <label for="topic"
-                    class="block text-sm font-medium text-gray-700">الموضوع</label>
-                <input type="text" id="topic" name="topic" required
-                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-            </div>
-            <div class="mb-4">
-                <label for="ParticipatingParties"
-                    class="block text-sm font-medium text-gray-700"> الجهات المشاركة</label>
-                <input type="text" id="ParticipatingParties" name="ParticipatingParties" required
-                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-            </div>
-
             <div id="descriptions-container">
                 <label for="description-1" class="block text-sm font-medium text-gray-700 mb-1 text-right">وصف</label>
                 <div class="mb-4 flex items-center">
