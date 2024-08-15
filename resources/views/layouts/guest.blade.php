@@ -27,4 +27,117 @@
             </div>
         </div>
     </body>
+    <style>
+        /* Body and General Styles */
+body {
+    font-family: 'Figtree', sans-serif;
+    color: #1a202c;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.font-sans {
+    font-family: sans-serif;
+}
+
+.text-gray-900 {
+    color: #1a202c;
+}
+
+.antialiased {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Full Screen Height */
+.min-h-screen {
+    min-height: 100vh;
+}
+
+/* Flexbox and Alignment */
+.flex {
+    display: flex;
+}
+
+.flex-col {
+    flex-direction: column;
+}
+
+.sm\:justify-center {
+    justify-content: center;
+}
+
+.items-center {
+    align-items: center;
+}
+
+.pt-6 {
+    padding-top: 1.5rem;
+}
+
+.sm\:pt-0 {
+    padding-top: 0;
+}
+
+.bg-gray-100 {
+    background-color: #f7fafc;
+}
+
+/* Logo Styling */
+.w-20 {
+    width: 5rem;
+}
+
+.h-20 {
+    height: 5rem;
+}
+
+.fill-current {
+    fill: currentColor;
+}
+
+.text-gray-500 {
+    color: #6b7280;
+}
+
+/* Container Styling */
+.w-full {
+    width: 100%;
+}
+
+.sm\:max-w-md {
+    max-width: 28rem;
+}
+
+.mt-6 {
+    margin-top: 1.5rem;
+}
+
+.px-6 {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+}
+
+.py-4 {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.bg-white {
+    background-color: #ffffff;
+}
+
+.shadow-md {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.overflow-hidden {
+    overflow: hidden;
+}
+
+.sm\:rounded-lg {
+    border-radius: 0.5rem;
+}
+
+    </style>
 </html>
