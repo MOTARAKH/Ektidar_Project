@@ -9,7 +9,7 @@
                     <p><strong class="text-gray-600">الرقم التعريفي:</strong> <span class="text-gray-800">{{ $form->id }}</span></p>
                     <p><strong class="text-gray-600">الجهة:</strong> <span class="text-gray-800">{{ $form->title }}</span></p>
                     <p><strong class="text-gray-600">الموضوع:</strong> <span class="text-gray-800">{{ $form->side }}</span></p>
-                    <p><strong class="text-gray-600">المستخدم:</strong></p>
+                    <p><strong class="text-gray-600">المستخدم:</strong><span class="text-gray-800">{{ $form->user->name }}</span></p>
                 </div>
             </div>
 
@@ -32,7 +32,12 @@
                 <div class="mb-6 rating flex items-center">
                     <!-- Star rating system -->
                     @for ($i = 1; $i <= 5; $i++)
-                        <svg class="h-5 w-5 cursor-pointer {{ $i <= $userRating ? 'text-yellow-500' : 'text-gray-300' }} mx-1" data-rating="{{ $i }}" fill="currentColor" viewBox="0 0 24 24">
+                        <svg 
+                        class="h-5 cursor-pointer  {{ $i <= $userRating ? 'text-yellow-500' : 'text-gray-300' }} mx-1" 
+                        style="{{ $i <= $userRating ? 'color:yellow' : 'color:black' }}"
+                        data-rating="{{ $i }}" 
+                        fill="currentColor" 
+                        viewBox="0 0 24 24">
                             <path d="M12 17.27L18.18 21 16.54 13.97 22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
                         </svg>
                     @endfor
@@ -76,7 +81,7 @@
                 function highlightStars(rating) {
                     stars.forEach(star => {
                         const starRating = star.getAttribute('data-rating');
-                        star.classList.toggle('text-yellow-500', starRating <= rating);
+                        star.style.color = starRating <= rating? 'yellow' : 'black';
                     });
                 }
 
@@ -149,6 +154,14 @@ h2 {
     margin-bottom: 0.5rem; /* Space below sub-heading */
     text-align: right; /* Right-align text */
 }
+.star {
+    color: gray;
+}
+
+.star.yellow {
+    color: yellow;
+}
+
 
 /* Information section styling */
 .mb-6 {

@@ -81,7 +81,7 @@
                                                         d="M12 20h9m0 0h-9m9 0V4m0 16v-8m0 8H3m3 0v-8m0 8v8" />
                                                 </svg>
                                             </a>
-                                        @endif
+                                        
                                         <form action="{{ route('forms.destroy', $form) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
@@ -94,6 +94,7 @@
                                                 </svg>
                                             </button>
                                         </form>
+                                        @endif
                                     </div>
                                 </td>
                             </tr>
