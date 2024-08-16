@@ -378,7 +378,7 @@
                                             <div class="mb-6 rating flex items-center">
                                                 <!-- Star rating system -->
                                                 @for ($i = 1; $i <= 5; $i++)
-                                                    <svg class="h-5 w-5 cursor-pointer {{ $i <= $visit->average_rating ? 'text-yellow-500' : 'text-gray-300' }} mx-1"
+                                                    <svg class="h-5 w-5 cursor-pointer {{ $i <= $post->average_rating ? 'text-yellow-500' : 'text-gray-300' }} mx-1"
                                                         data-rating="{{ $i }}" fill="currentColor"
                                                         viewBox="0 0 24 24">
                                                         <path
@@ -399,7 +399,7 @@
                     {{ $posts->links('pagination::tailwind') }}
                 </div>
             @endif
-        </div> 
+        </div>
         {{-- end posts --}}
 
         {{-- activities --}}
@@ -454,7 +454,7 @@
                                             <div class="mb-6 rating flex items-center">
                                                 <!-- Star rating system -->
                                                 @for ($i = 1; $i <= 5; $i++)
-                                                    <svg class="h-5 w-5 cursor-pointer {{ $i <= $visit->average_rating ? 'text-yellow-500' : 'text-gray-300' }} mx-1"
+                                                    <svg class="h-5 w-5 cursor-pointer {{ $i <= $activity   ->average_rating ? 'text-yellow-500' : 'text-gray-300' }} mx-1"
                                                         data-rating="{{ $i }}" fill="currentColor"
                                                         viewBox="0 0 24 24">
                                                         <path
@@ -475,7 +475,7 @@
                     {{ $activities->links('pagination::tailwind') }}
                 </div>
             @endif
-        </div> 
+        </div>
         {{-- end activities --}}
     </div>
 
